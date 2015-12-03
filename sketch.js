@@ -3,7 +3,7 @@ var sketch = function(p) {
 	var img;
 	var pos = p.createVector();
 	var vel = p.createVector();
-	var rad;
+	var rad = 5;
 	var balls = [];
 	var table;
 
@@ -16,13 +16,14 @@ var sketch = function(p) {
 	p.setup = function() {
 		var canvas = p.createCanvas(p.windowWidth, p.windowHeight);
     table = p.loadTable("data/TAGS v6.0ns_THESIS - Archive_24-26Nov.csv", "header", p.gotData);
-    img.loadPixels();
+    
     
 		// Apply a force each time the mouse is pressed inside the canvas
-		canvas.mousePressed(applyForce);
+		// canvas.mousePressed(applyForce);
 
 		p.ellipseMode(p.RADIUS);
 		// p.noStroke();
+		img.loadPixels();
 	};
 	
 	p.gotData = function(table) {
@@ -44,9 +45,9 @@ var sketch = function(p) {
   			var alpha = p.TWO_PI * p.random();
   			pos.set(0.55 * img.width + r * p.cos(alpha), 0.4 * img.height + r * p.sin(alpha), 0);
   			vel.set(0, 0, 0);
-  			rad = p.map(i, 0, img.width, 7, table.getRowCount());
-  		// 	balls[balls.length] = new Ball(pos, vel, rad, tweet, username, timestamp);
-  			balls[i] = new Ball(pos, vel, rad, tweet, username, timestamp);
+  			rad = p.map(rad, 0, table.getRowCount(), 6, 45);
+  			balls[balls.length] = new Ball(pos, vel, rad, tweet, username, timestamp);
+  		// 	balls[i] = new Ball(pos, vel, rad, tweet, username, timestamp);
   		}
     }
 	}
